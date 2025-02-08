@@ -12,24 +12,20 @@ export default async function Header() {
       <div className="container max-w-7xl mx-auto flex h-20 items-center justify-between">
         <div className="mr-4 md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="font-bold text-2xl sm:inline-block">PDF to Video</span>
+            <span className="font-bold text-2xl sm:inline-block">TLDReel</span>
           </Link>
-          <nav className="flex items-center space-x-6 text-sm font-medium">
-            <Link href="#features">Features</Link>
-            <Link href="#use-cases">Use Cases</Link>
-          </nav>
         </div>
         <div className="flex items-center space-x-2">
           {isSignedIn ? (
             <UserButton afterSignOutUrl="/" />
           ) : (
             <>
-              <SignInButton mode="modal">
-                <Button variant="ghost">Log in</Button>
-              </SignInButton>
               <SignUpButton mode="modal">
-                <Button>Sign up</Button>
+                <Button variant="outline" className="rounded-full bg-transparent border-purple-700">Sign up</Button>
               </SignUpButton>
+              <SignInButton mode="modal">
+                <Button variant="default" className="rounded-full bg-[#8161FF]">Log in</Button>
+              </SignInButton>
             </>
           )}
         </div>

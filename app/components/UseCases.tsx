@@ -1,31 +1,31 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { GraduationCap, Briefcase, Stethoscope, Scale } from "lucide-react"
+import { GraduationCap, Briefcase, BookOpen, Handshake } from "lucide-react"
 
 export default function UseCases() {
   const cases = [
     {
-      title: "Education",
-      description: "Perfect for students and educators, from K-12 to higher education.",
-      icon: GraduationCap,
-      examples: ["Interactive learning materials", "Personalized study guides", "Exam preparation"],
-    },
-    {
-      title: "Corporate Training",
-      description: "Streamline employee onboarding and professional development.",
+      title: "Professional Skills Transition",
+      description: "Mid-career professionals can create structured learning journeys to switch industries",
       icon: Briefcase,
-      examples: ["Company policies and procedures", "Compliance training", "Skill development courses"],
+      examples: ["Interactive learning materials", "Personalized study guides", "Bite sized explainer videos"],
     },
     {
-      title: "Healthcare",
-      description: "Simplify complex medical information for professionals and patients.",
-      icon: Stethoscope,
-      examples: ["Patient education materials", "Medical procedure explanations", "Healthcare professional training"],
+      title: "High School Students",
+      description: "Explore advanced subjects beyond standard curriculum as well as learn new skills.",
+      icon: GraduationCap,
+      examples: ["Gamified quizzes", "Validate understanding", "Maintain learning motivation through bite-sized videos"],
     },
     {
-      title: "Legal",
-      description: "Make legal documents more accessible and understandable.",
-      icon: Scale,
-      examples: ["Terms and conditions visualization", "Legal document simplification", "Policy explanations"],
+      title: "Small Business Owner",
+      description: "Training Entrepreneurs improve specific business skills.",
+      icon: Handshake,
+      examples: ["Video content on topics like digital marketing and team leadership", "Explanation on business concepts"],
+    },
+    {
+      title: "Teachers",
+      description: "Teachers can use the platform to create dynamic, personalized learning experiences for students",
+      icon: BookOpen,
+      examples: ["Interactive quizzes", "Develop engaging, curriculum-aligned content across various subjects"],
     },
   ]
 

@@ -1,29 +1,38 @@
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Zap, Shield, BarChart } from "lucide-react"
+import {Route, Film, FileQuestion } from "lucide-react"
 
 export default function Features() {
   const features = [
     {
-      title: "Lightning Fast",
-      description: "Our platform is optimized for speed, ensuring quick load times and responsive interactions.",
-      icon: Zap,
+      title: "Short Video Lessons",
+      description: "Videos designed for quick and efficient learning, ensuring users grasp concepts without lengthy lectures.",
+      icon: Film,
     },
     {
-      title: "Secure & Reliable",
-      description: "Your data is protected with enterprise-grade security measures and regular backups.",
-      icon: Shield,
+      title: "Structured Learning Roadmap",
+      description: "Guided step-by-step learning path to help users navigate through topics in a structured manner.",
+      icon: Route,
     },
     {
-      title: "Powerful Analytics",
-      description: "Gain valuable insights with our comprehensive analytics and reporting tools.",
-      icon: BarChart,
+      title: "Interactive Quizzes",
+      description: "Engaging quizzes to reinforce learning and test understanding.",
+      icon: FileQuestion,
     },
   ]
 
   return (
     <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
       <div className="container max-w-7xl mx-auto px-4 md:px-6">
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">Key Features</h2>
+        <h2 className="text-3xl font-thin tracking-tighter sm:text-6xl text-center mb-12 flex justify-center items-center space-x-2">
+          Key &nbsp;
+          <Button
+            variant="outline"
+            className="rounded-full bg-transparent border-purple-700 text-3xl sm:text-6xl font-thin h-12 sm:h-16 cursor-default text-[#8161FF] sm:hover:text-white sm:hover:bg-[#8161FF]"
+          >
+            Features
+          </Button>
+        </h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {features.map((feature, index) => (
             <Card key={index}>

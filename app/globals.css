@@ -74,3 +74,46 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Customize Mermaid diagram appearance */
+.mermaid {
+  @apply text-sm sm:text-base;
+}
+
+/* Add smooth transitions for diagram elements */
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node ellipse,
+.mermaid .node polygon,
+.mermaid .node path {
+  @apply transition-all duration-300;
+}
+
+/* Enhance the appearance of connection lines */
+.mermaid .edgePath path {
+  @apply stroke-2;
+}
+
+/* Add hover effects */
+.mermaid .node:hover rect,
+.mermaid .node:hover circle,
+.mermaid .node:hover ellipse,
+.mermaid .node:hover polygon {
+  @apply filter brightness-95;
+}
+

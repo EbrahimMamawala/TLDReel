@@ -1,31 +1,31 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { TopicButton } from "@/app/components/TopicButton"
 import { BookIcon as BookQuiz, Play, Map } from "lucide-react"
 
-// Simulating backend data
 const TOPICS = [
   ["Mathematics", "Physics", "Chemistry", "Biology", "Computer Science"],
   ["History", "Geography", "Economics", "Politics", "Sociology"],
   ["Literature", "Art", "Music", "Philosophy", "Psychology"],
 ]
 
-export default function TopicSelection() {
+export default function TopicSelection({ params }: { params: { topicId: string } }) {
   const [selectedTopics, setSelectedTopics] = useState<string[]>([])
+  const router = useRouter()
 
   const toggleTopic = (topic: string) => {
     setSelectedTopics((prev) => (prev.includes(topic) ? prev.filter((t) => t !== topic) : [...prev, topic]))
   }
-
+  const topicId = params.topicId
   return (
     <div className="flex h-screen bg-background">
       <div className="flex flex-col h-screen justify-center mx-auto">
         <div className="text-center space-y-8">
           <h1 className="text-5xl font-bold mb-5">Choose the topics that you want us to cover</h1>
-
           <div className="grid gap-6">
             {TOPICS.map((row, rowIndex) => (
               <div key={rowIndex} className="flex justify-center gap-4">
@@ -47,15 +47,15 @@ export default function TopicSelection() {
           </div>
 
           <div className="flex justify-center gap-4 mt-8">
-            <Button size="lg" variant="outline" className="gap-2">
+            <Button size="lg" variant="outline" className="gap-2" onClick={() => router.push(`/dashboard/${topicId}/quiz`)}> 
               <BookQuiz className="h-5 w-5" />
               Quiz
             </Button>
-            <Button size="lg" variant="outline" className="gap-2">
+            <Button size="lg" variant="outline" className="gap-2" onClick={() => router.push(`/dashboard/${topicId}/video`)}> 
               <Play className="h-5 w-5" />
               Watch Videos
             </Button>
-            <Button size="lg" variant="outline" className="gap-2">
+            <Button size="lg" variant="outline" className="gap-2" onClick={() => router.push(`/dashboard/${topicId}/roadmap`)}> 
               <Map className="h-5 w-5" />
               Generate Roadmap
             </Button>
@@ -65,4 +65,3 @@ export default function TopicSelection() {
     </div>
   )
 }
-

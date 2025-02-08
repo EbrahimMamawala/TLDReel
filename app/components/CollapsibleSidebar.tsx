@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { UserButton } from "@clerk/nextjs"
 import { MessageSquare, PlusCircle, Menu } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 interface CollapsibleSidebarProps {
   user: {
@@ -27,6 +28,7 @@ export default function CollapsibleSidebar({ user, chatHistory }: CollapsibleSid
   const closeSidebar = () => {
     setIsOpen(false)
   }
+  const router = useRouter()
 
   return (
     <>
@@ -63,7 +65,7 @@ export default function CollapsibleSidebar({ user, chatHistory }: CollapsibleSid
             <span className="font-medium">Hello, {user?.firstName || "Guest"}</span>
           </div>
           <div className="space-y-2">
-            <Button className="w-full justify-start">
+            <Button className="w-full justify-start" onClick={() => router.push(`/dashboard`)}>
               <PlusCircle className="mr-2 h-4 w-4" />
               New Chat
             </Button>
