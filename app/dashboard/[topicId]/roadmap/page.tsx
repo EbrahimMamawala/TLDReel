@@ -25,18 +25,6 @@ const jsonData = {
             "Media Queries",
             "Mobile-first Design",
           ]
-        },
-        "JavaScript": {
-          "Basics": [
-            "Variables & Data Types",
-            "Operators & Expressions",
-            "Functions & Scope",
-          ],
-          "Frameworks & Libraries": [
-            "React.js",
-            "Vue.js",
-            "Angular",
-          ]
         }
       }
     }

@@ -65,35 +65,6 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-gray-100">Legal</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                >
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                >
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                >
-                  Cookie Policy
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
             <h3 className="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-gray-100">Follow Us</h3>
             <div className="flex space-x-4">
               <Link href="#" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">
@@ -117,7 +88,7 @@ export default function Footer() {
         </div>
         <div className="mt-8 border-t border-gray-200 pt-8 dark:border-gray-700">
           <p className="text-center text-xs leading-5 text-gray-500 dark:text-gray-400">
-            © 2025 StreamLine, Inc. All rights reserved.
+            © 2025 TLDReel, Inc. All rights reserved.
           </p>
         </div>
       </div>
