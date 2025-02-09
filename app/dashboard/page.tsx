@@ -9,7 +9,7 @@ import { Upload } from "lucide-react";
 import * as pdfjs from "pdfjs-dist";
 import "pdfjs-dist/build/pdf.worker.mjs"; // Ensure the worker file is loaded
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL("pdfjs-dist/build/pdf.worker.mjs", import.meta.url).toString();
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.js`;
 
 export default function ChatUI() {
   const router = useRouter();
