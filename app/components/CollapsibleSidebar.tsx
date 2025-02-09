@@ -13,7 +13,6 @@ interface CollapsibleSidebarProps {
   chatHistory: Array<{
     id: number
     title: string
-    date: string
   }>
 }
 
@@ -54,7 +53,7 @@ export default function CollapsibleSidebar({ user, chatHistory }: CollapsibleSid
       <div
         className={`
           fixed lg:static inset-y-0 left-0 z-40
-          w-64 border-r bg-muted/50 flex flex-col
+          w-72 border-r bg-purple-200 flex flex-col
           transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
         `}
@@ -64,22 +63,24 @@ export default function CollapsibleSidebar({ user, chatHistory }: CollapsibleSid
             <UserButton />
             <span className="font-medium">Hello, {user?.firstName || "Guest"}</span>
           </div>
+          <div className="flex items-center gap-2 mb-6 mt-10">
+            <p className="text-sm text-foreground">Points🏅: 123</p>
+          </div>
           <div className="space-y-2">
             <Button className="w-full justify-start" onClick={() => router.push(`/dashboard`)}>
               <PlusCircle className="mr-2 h-4 w-4" />
-              New Chat
+              New Topic
             </Button>
           </div>
         </div>
         <div className="flex-1 overflow-auto p-4">
-          <h2 className="font-semibold mb-2 text-sm text-muted-foreground">Topic History</h2>
+          <h2 className="font-bold mb-2 text-sm text-foreground">Topic History</h2>
           <div className="space-y-2">
             {chatHistory.map((chat) => (
               <Button key={chat.id} variant="ghost" className="w-full justify-start text-left">
                 <MessageSquare className="mr-2 h-4 w-4" />
-                <div className="truncate">
+                <div className="break-words">
                   <div className="text-sm">{chat.title}</div>
-                  <div className="text-xs text-muted-foreground">{chat.date}</div>
                 </div>
               </Button>
             ))}

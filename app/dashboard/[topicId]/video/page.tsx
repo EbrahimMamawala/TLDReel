@@ -64,7 +64,7 @@ export default function Home() {
           onPreviousVideo={previousVideo}
         />
       </div>
-      <div className="hidden md:block w-[300px] flex-shrink-0">
+      <div className="hidden md:block w-[400px] flex-shrink-0">
         <VideoList videos={videos} currentVideoIndex={currentVideoIndex} onVideoSelect={setCurrentVideoIndex} />
       </div>
     </div>

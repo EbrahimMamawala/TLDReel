@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
@@ -6,19 +7,19 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
 import * as pdfjs from "pdfjs-dist";
+import "pdfjs-dist/build/pdf.worker.mjs"; // Ensure the worker file is loaded
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+pdfjs.GlobalWorkerOptions.workerSrc = new URL("pdfjs-dist/build/pdf.worker.mjs", import.meta.url).toString();
 
 export default function ChatUI() {
   const router = useRouter();
   const [inputText, setInputText] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [topics, setTopics] = useState({ easy: [], medium: [], difficult: [] });
 
   const handlePDFClick = () => {
-    if (typeof document !== "undefined") {
-      document.getElementById("file-upload")?.click();
-    }
+    document.getElementById("file-upload")?.click();
   };
 
   const extractTextFromPDF = async (file: File) => {
@@ -55,8 +56,8 @@ export default function ChatUI() {
     }
 
     setLoading(true);
+    let combinedText = inputText.trim();
 
-    let combinedText = inputText;
     if (file) {
       try {
         const extractedText = await extractTextFromPDF(file);
@@ -69,22 +70,26 @@ export default function ChatUI() {
     }
 
     const topicId = uuidv4();
-    const formData = new FormData();
-    formData.append("topic_id", topicId);
-    formData.append("text", combinedText);
 
-    const response = await fetch("http://localhost:8000/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user_input: combinedText }),
-    });
+    try {
+      const response = await fetch("http://localhost:8000/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_input: combinedText }),
+      });
 
-    setLoading(false);
-
-    if (response.ok) {
-      router.push(`/dashboard/${topicId}`);
-    } else {
-      alert("Upload failed");
+      if (response.ok) {
+        const data = await response.json();
+        const data1 = JSON.parse(data);
+        setTopics(data1.topics);
+        router.push(`/dashboard/${topicId}?topics=${encodeURIComponent(JSON.stringify(data1.topics))}`);
+      } else {
+        alert("Upload failed");
+      }
+    } catch (error) {
+      alert("An error occurred");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -107,18 +112,16 @@ export default function ChatUI() {
               accept=".pdf"
               onChange={(e) => setFile(e.target.files?.[0] || null)}
             />
-            <label htmlFor="file-upload">
-              <Button
-                size="sm"
-                variant="ghost"
-                className="absolute right-[120px] top-1/2 -translate-y-1/2"
-                onClick={handlePDFClick}
-                type="button"
-              >
-                <Upload className="h-4 w-4 mr-1" />
-                PDF
-              </Button>
-            </label>
+            <Button
+              size="sm"
+              variant="ghost"
+              className="absolute right-[120px] top-1/2 -translate-y-1/2"
+              onClick={handlePDFClick}
+              type="button"
+            >
+              <Upload className="h-4 w-4 mr-1" />
+              PDF
+            </Button>
             <Button
               variant="default"
               className="absolute right-2 top-1/2 -translate-y-1/2"
@@ -128,11 +131,7 @@ export default function ChatUI() {
               {loading ? "Processing..." : "Get Started"}
             </Button>
           </div>
-          {file && (
-            <div className="mt-2 text-sm text-gray-600">
-              Selected file: {file.name}
-            </div>
-          )}
+          {file && <div className="mt-2 text-sm text-gray-600">Selected file: {file.name}</div>}
         </div>
       </div>
     </div>

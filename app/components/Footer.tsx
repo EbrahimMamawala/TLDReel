@@ -1,95 +1,74 @@
+import { Mail, Instagram, Twitter, Linkedin } from "lucide-react"
 import Link from "next/link"
-import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
 
-export default function Footer() {
+export function Footer() {
+  const links = {
+    company: [
+      { label: "Home", href: "/" },
+      { label: "About us", href: "/about" },
+      { label: "Licenses", href: "/licenses" },
+      { label: "India", href: "/india" },
+    ],
+    legal: [
+      { label: "Terms of service", href: "/terms" },
+      { label: "Privacy policy", href: "/privacy" },
+      { label: "Cookies policy", href: "/cookies" },
+    ],
+  }
+
+  const socialLinks = [
+    { icon: Mail, href: "mailto:contact@example.com" },
+    { icon: Instagram, href: "https://instagram.com" },
+    { icon: Twitter, href: "https://twitter.com" },
+    { icon: Linkedin, href: "https://linkedin.com" },
+  ]
+
   return (
-    <footer className="w-full py-6 bg-gray-100 dark:bg-gray-800">
-      <div className="container max-w-7xl mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+    <footer className="border-t py-12 px-4 md:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-8">
           <div>
-            <h3 className="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-gray-100">Company</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                >
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                >
-                  Press
-                </Link>
-              </li>
-            </ul>
+            <h3 className="text-4xl font-bold mb-2">
+              Short Lessons,
+              <br />
+              Big <span className="text-purple-600">Impact.</span>
+            </h3>
           </div>
-          <div>
-            <h3 className="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-gray-100">Resources</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                >
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                >
-                  Documentation
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-                >
-                  Help Center
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-gray-100">Follow Us</h3>
-            <div className="flex space-x-4">
-              <Link href="#" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">
-                <Facebook className="w-6 h-6" />
-                <span className="sr-only">Facebook</span>
-              </Link>
-              <Link href="#" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">
-                <Twitter className="w-6 h-6" />
-                <span className="sr-only">Twitter</span>
-              </Link>
-              <Link href="#" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">
-                <Instagram className="w-6 h-6" />
-                <span className="sr-only">Instagram</span>
-              </Link>
-              <Link href="#" className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">
-                <Linkedin className="w-6 h-6" />
-                <span className="sr-only">LinkedIn</span>
-              </Link>
+          <div className="grid grid-cols-2 gap-8">
+            <div>
+              <ul className="space-y-3">
+                {links.company.map((link) => (
+                  <li key={link.label}>
+                    <Link href={link.href} className="text-gray-600 hover:text-gray-900 transition-colors">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <ul className="space-y-3">
+                {links.legal.map((link) => (
+                  <li key={link.label}>
+                    <Link href={link.href} className="text-gray-600 hover:text-gray-900 transition-colors">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
-        <div className="mt-8 border-t border-gray-200 pt-8 dark:border-gray-700">
-          <p className="text-center text-xs leading-5 text-gray-500 dark:text-gray-400">
-            © 2025 TLDReel, Inc. All rights reserved.
-          </p>
+        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t gap-4">
+          <p className="text-sm text-gray-600">© {new Date().getFullYear()} TLDR Inc. All rights reserved</p>
+          <div className="flex gap-4">
+            {socialLinks.map((link, index) => (
+              <Link key={index} href={link.href} className="text-gray-400 hover:text-gray-600 transition-colors">
+                <link.icon className="w-5 h-5" />
+                <span className="sr-only">Social link</span>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

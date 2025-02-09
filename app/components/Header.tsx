@@ -12,7 +12,7 @@ export default async function Header() {
       <div className="container max-w-7xl mx-auto flex h-20 items-center justify-between">
         <div className="mr-4 md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="font-bold text-2xl sm:inline-block">TLDReel</span>
+            <span className="font-bold text-4xl sm:inline-block text-purple-700">TLDReel</span>
           </Link>
         </div>
         <div className="flex items-center space-x-2">
