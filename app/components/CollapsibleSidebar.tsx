@@ -64,7 +64,7 @@ export default function CollapsibleSidebar({ user, chatHistory }: CollapsibleSid
             <span className="font-medium">Hello, {user?.firstName || "Guest"}</span>
           </div>
           <div className="flex items-center gap-2 mb-6 mt-10">
-            <p className="text-sm text-foreground">Points🏅: 123</p>
+            <p className="text-sm font-bold text-foreground">Points🏅: 123</p>
           </div>
           <div className="space-y-2">
             <Button className="w-full justify-start" onClick={() => router.push(`/dashboard`)}>

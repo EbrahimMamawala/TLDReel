@@ -4,10 +4,10 @@ import CollapsibleSidebar from "../components/CollapsibleSidebar"
 import type React from "react"
 
 const chatHistory = [
-  { id: 1, title: "React Components Discussion", date: "2024-02-01" },
-  { id: 2, title: "Database Schema Planning", date: "2024-02-02" },
-  { id: 3, title: "API Integration Questions", date: "2024-02-03" },
-  { id: 4, title: "Performance Optimization Chat", date: "2024-02-04" },
+  { id: 1, title: "React Components Discussion"},
+  { id: 2, title: "Database Schema Planning"},
+  { id: 3, title: "API Integration Questions"},
+  { id: 4, title: "Performance Optimization Chat"},
 ]
 
 export default async function DashboardLayout({

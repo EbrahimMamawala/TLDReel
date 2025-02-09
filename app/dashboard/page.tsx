@@ -75,7 +75,7 @@ export default function ChatUI() {
       const response = await fetch("http://localhost:8000/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_input: combinedText }),
+        body: JSON.stringify({ id: topicId, name: inputText ? inputText : file?.name }),
       });
 
       if (response.ok) {
