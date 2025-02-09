@@ -7,9 +7,9 @@ import VideoList from "../../../components/VideoList"
 const videos = [
   {
     id: 1,
-    src: "/video1.mp4",
-    title: "Video 1",
-    description: "This is the description for video 1",
+    src: "/NodeJs.mp4",
+    title: "Understanding Node.js",
+    description: "Basics of Node.js",
     username: "abcd",
     likes: "3.3M",
     comments: "14K",
@@ -17,9 +17,9 @@ const videos = [
   },
   {
     id: 2,
-    src: "/video2.mp4",
-    title: "Video 2",
-    description: "This is the description for video 2",
+    src: "/French.mp4",
+    title: "Asynchrone du Server",
+    description: "French",
     username: "efgh",
     likes: "3.3M",
     comments: "14K",
@@ -27,9 +27,9 @@ const videos = [
   },
   {
     id: 3,
-    src: "/video3.mp4",
-    title: "Video 3",
-    description: "This is the description for video 3",
+    src: "/EventLoops.mp4",
+    title: "Understanding Event Loop",
+    description: "Basics of Event Loop",
     username: "ijkl",
     likes: "3.3M",
     comments: "14K",

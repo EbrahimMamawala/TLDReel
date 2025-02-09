@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { TopicButton } from "@/app/components/TopicButtons"
@@ -9,63 +9,43 @@ import { BookIcon as BookQuiz, Play, Map } from "lucide-react"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { LanguageSelector } from "@/app/components/language-selector"
 
+const topics = {
+  easy: [
+    "Basic HTML and CSS for web design",
+    "Introduction to JavaScript programming",
+    "Setting up a development environment with tools like VS Code",
+    "Version control with Git and GitHub",
+    "Introduction to responsive web design principles"
+  ],
+  medium: [
+    "Working with APIs and fetching data in frontend applications",
+    "Using modern JavaScript frameworks like React or Vue",
+    "Styling web applications with CSS preprocessors like SASS or LESS",
+    "Understanding and implementing state management in frontend applications",
+    "Testing frontend code using tools like Jest or Cypress"
+  ],
+  difficult: [
+    "Implementing advanced animations with CSS and JavaScript",
+    "Optimizing website performance using webpack and code splitting",
+    "Creating complex responsive layouts with flexbox and CSS grid",
+    "Building accessible web interfaces with ARIA and WCAG guidelines",
+    "Implementing server-side rendering and SSR optimization"
+  ]
+};
+
 export default function TopicSelection({ params }: { params: { topicId: string } }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
-  const [topics, setTopics] = useState({ easy: [], medium: [], difficult: [] });
   const [additionalTopic, setAdditionalTopic] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-
-  useEffect(() => {
-    const topicsFromParams = searchParams.get("topics");
-    if (topicsFromParams) {
-      try {
-        setTopics(JSON.parse(decodeURIComponent(topicsFromParams)));
-      } catch (error) {
-        console.error("Failed to parse topics:", error);
-      }
-    }
-  }, [searchParams]);
 
   const toggleTopic = (topic: string) => {
     setSelectedTopics((prev) => (prev.includes(topic) ? prev.filter((t) => t !== topic) : [...prev, topic]));
   };
 
-  const handleQuizButtonClick = async () => {
+  const handleButtonClick = (endpoint: string) => {
     const allTopics = [...selectedTopics, additionalTopic].filter(topic => topic.trim() !== "");
-    const response = await fetch('/generate-quiz', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ topicId: params.topicId, topics: allTopics, language: selectedLanguage }),
-    });
-    router.push(`/dashboard/${params.topicId}/quiz`);
-  };
-
-  const handleRoadmapButtonClick = async () => {
-    const allTopics = [...selectedTopics, additionalTopic].filter(topic => topic.trim() !== "");
-    const response = await fetch('/generate-roadmap', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ topicId: params.topicId, topics: allTopics}),
-    });
-    router.push(`/dashboard/${params.topicId}/roadmap`);
-  };
-
-  const handleVideoButtonClick = async () => {
-    const allTopics = [...selectedTopics, additionalTopic].filter(topic => topic.trim() !== "");
-    const response = await fetch('/generate-video', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ topicId: params.topicId, topics: allTopics, language: selectedLanguage }),
-    });
-    router.push(`/dashboard/${params.topicId}/video`);
+    router.push(`/dashboard/${params.topicId}/${endpoint}`);
   };
 
   return (
@@ -108,30 +88,15 @@ export default function TopicSelection({ params }: { params: { topicId: string }
           </div>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-            <Button
-              size="default"
-              variant="outline"
-              className="gap-2"
-              onClick={handleQuizButtonClick}
-            >
+            <Button size="default" variant="outline" className="gap-2" onClick={() => handleButtonClick("quiz")}>
               <BookQuiz className="h-4 w-4" />
               Quiz
             </Button>
-            <Button
-              size="default"
-              variant="outline"
-              className="gap-2"
-              onClick={handleVideoButtonClick}
-            >
+            <Button size="default" variant="outline" className="gap-2" onClick={() => handleButtonClick("video")}>
               <Play className="h-4 w-4" />
               Watch Videos
             </Button>
-            <Button
-              size="default"
-              variant="outline"
-              className="gap-2"
-              onClick={handleRoadmapButtonClick}
-            >
+            <Button size="default" variant="outline" className="gap-2" onClick={() => handleButtonClick("roadmap")}>
               <Map className="h-4 w-4" />
               Generate Roadmap
             </Button>
