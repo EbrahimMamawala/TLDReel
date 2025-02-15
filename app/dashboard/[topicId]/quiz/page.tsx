@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { useTopicStore } from "@/store/topicStore";
 
 export default function QuizPage({ params }: { params: { topicId: string } }) {
   const router = useRouter();
@@ -16,18 +17,34 @@ export default function QuizPage({ params }: { params: { topicId: string } }) {
   const [timeTaken, setTimeTaken] = useState(0);
   const [startTime] = useState(Date.now());
   const [isPaused, setIsPaused] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // NEW: Loading state
 
   useEffect(() => {
     const fetchQuiz = async () => {
+      setIsLoading(true); // Show loading screen
+
       try {
-        const response = await fetch(`/generate-quiz`);
+        const allTopics = useTopicStore.getState().selectedTopics;
+        const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+        const response = await fetch(`${baseUrl}/quizzes`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ topic_id: params.topicId, question_data: allTopics }),
+        });
+
         if (!response.ok) throw new Error("Failed to fetch quiz questions");
+
         const data = await response.json();
-        setQuizQuestions(data.questions);
+        setQuizQuestions(data); // Set fetched quiz questions
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false); // Hide loading screen
       }
     };
+
     fetchQuiz();
   }, [params.topicId]);
 
@@ -63,6 +80,14 @@ export default function QuizPage({ params }: { params: { topicId: string } }) {
     if (isCorrect) setScore((prev) => prev + 1);
     setTimeout(handleNextQuestion, 2000);
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-xl font-semibold">Generating Your Quiz...</div>
+      </div>
+    );
+  }
 
   if (isQuizComplete) {
     return (

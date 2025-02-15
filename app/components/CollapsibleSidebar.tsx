@@ -73,11 +73,18 @@ export default function CollapsibleSidebar({ user, chatHistory }: CollapsibleSid
             </Button>
           </div>
         </div>
+
+        {/* Scrollable Topic History Section */}
         <div className="flex-1 overflow-auto p-4">
           <h2 className="font-bold mb-2 text-sm text-foreground">Topic History</h2>
-          <div className="space-y-2">
+          <div className="space-y-2 max-h-[calc(100vh-300px)] overflow-y-auto">
             {chatHistory.map((chat) => (
-              <Button key={chat._id} variant="ghost" className="w-full justify-start text-left" onClick={() => router.push(`/dashboard/${chat._id}`)}>
+              <Button
+                key={chat._id}
+                variant="ghost"
+                className="w-full justify-start text-left"
+                onClick={() => router.push(`/dashboard/${chat._id}`)}
+              >
                 <MessageSquare className="mr-2 h-4 w-4" />
                 <div className="break-words">
                   <div className="text-sm">{chat.name}</div>
