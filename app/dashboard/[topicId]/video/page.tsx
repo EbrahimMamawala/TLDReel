@@ -10,30 +10,18 @@ const videos = [
     src: "/NodeJs.mp4",
     title: "Understanding Node.js",
     description: "Basics of Node.js",
-    username: "abcd",
-    likes: "3.3M",
-    comments: "14K",
-    userAvatar: "/placeholder.svg?height=32&width=32",
   },
   {
     id: 2,
     src: "/French.mp4",
     title: "Asynchrone du Server",
     description: "French",
-    username: "efgh",
-    likes: "3.3M",
-    comments: "14K",
-    userAvatar: "/placeholder.svg?height=32&width=32",
   },
   {
     id: 3,
     src: "/EventLoops.mp4",
     title: "Understanding Event Loop",
     description: "Basics of Event Loop",
-    username: "ijkl",
-    likes: "3.3M",
-    comments: "14K",
-    userAvatar: "/placeholder.svg?height=32&width=32",
   },
 ]
 
@@ -56,10 +44,6 @@ export default function Home() {
         <VideoPlayer
           videoSrc={currentVideo.src}
           title={currentVideo.title}
-          username={currentVideo.username}
-          likes={currentVideo.likes}
-          comments={currentVideo.comments}
-          userAvatar={currentVideo.userAvatar}
           onNextVideo={nextVideo}
           onPreviousVideo={previousVideo}
         />

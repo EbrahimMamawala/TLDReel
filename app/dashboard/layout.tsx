@@ -4,13 +4,14 @@ import CollapsibleSidebar from "../components/CollapsibleSidebar"
 import type React from "react"
 import { headers } from "next/headers";
 
-async function fetchChatHistory() {
+async function fetchChatHistory(userId: string) {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     const res = await fetch(`${baseUrl}/generate`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "User-ID": userId
       },
     });
 
@@ -35,7 +36,7 @@ export default async function DashboardLayout({
     redirect("/")
   }
 
-  const chatHistory = await fetchChatHistory();
+  const chatHistory = await fetchChatHistory(userId);
 
   // Extract only the required fields from the `user` object
   const plainUser = {
@@ -46,7 +47,7 @@ export default async function DashboardLayout({
     <html lang="en" className="h-full">
       <body className="h-full flex overflow-hidden">
         {/* Pass the plainUser object */}
-        <CollapsibleSidebar user={plainUser} chatHistory={chatHistory} />
+        <CollapsibleSidebar user={plainUser} chatHistory={chatHistory} userId={userId}/>
 
         {/* Main Content */}
         <div className="flex-1 p-4 lg:p-6 overflow-hidden">{children}</div>

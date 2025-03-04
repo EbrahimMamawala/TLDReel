@@ -5,12 +5,14 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
+import { useAuth } from "@clerk/nextjs";
 
 export default function ChatUI() {
   const router = useRouter();
   const [inputText, setInputText] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false); // Loading state
+  const { userId } = useAuth();
 
   const handlePDFClick = () => {
     document.getElementById("file-upload")?.click();
@@ -19,7 +21,6 @@ export default function ChatUI() {
   const handleSubmit = async () => {
     setIsLoading(true); // Start loading
     const userInput = inputText || file?.name || '';
-
     try {
       // Send POST request to /generate
       const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -28,7 +29,7 @@ export default function ChatUI() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ user_input: userInput }),
+        body: JSON.stringify({ user_input: userInput, userId: userId }),
       });
 
       if (!response.ok) {

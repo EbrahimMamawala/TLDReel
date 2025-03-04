@@ -2,19 +2,6 @@ import { Mail, Instagram, Twitter, Linkedin } from "lucide-react"
 import Link from "next/link"
 
 export function Footer() {
-  const links = {
-    company: [
-      { label: "Home", href: "/" },
-      { label: "About us", href: "/about" },
-      { label: "Licenses", href: "/licenses" },
-      { label: "India", href: "/india" },
-    ],
-    legal: [
-      { label: "Terms of service", href: "/terms" },
-      { label: "Privacy policy", href: "/privacy" },
-      { label: "Cookies policy", href: "/cookies" },
-    ],
-  }
 
   const socialLinks = [
     { icon: Mail, href: "mailto:contact@example.com" },
@@ -33,30 +20,6 @@ export function Footer() {
               <br />
               Big <span className="text-purple-600">Impact.</span>
             </h3>
-          </div>
-          <div className="grid grid-cols-2 gap-8">
-            <div>
-              <ul className="space-y-3">
-                {links.company.map((link) => (
-                  <li key={link.label}>
-                    <Link href={link.href} className="text-gray-600 hover:text-gray-900 transition-colors">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <ul className="space-y-3">
-                {links.legal.map((link) => (
-                  <li key={link.label}>
-                    <Link href={link.href} className="text-gray-600 hover:text-gray-900 transition-colors">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t gap-4">

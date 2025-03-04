@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
 
-
 import {
   Play,
   Pause,
@@ -17,21 +16,12 @@ import {
 interface VideoPlayerProps {
   videoSrc: string;
   title: string;
-  username: string;
-  likes: string;
-  comments: string;
-  userAvatar: string;
   onNextVideo: () => void;
   onPreviousVideo: () => void;
 }
 
 const VideoPlayer = ({
   videoSrc,
-  title,
-  username,
-  likes,
-  comments,
-  userAvatar,
   onNextVideo,
   onPreviousVideo,
 }: VideoPlayerProps) => {

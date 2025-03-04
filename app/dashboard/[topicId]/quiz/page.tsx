@@ -5,9 +5,11 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useTopicStore } from "@/store/topicStore";
+import { useAuth } from "@clerk/nextjs";
 
 export default function QuizPage({ params }: { params: { topicId: string } }) {
   const router = useRouter();
+  const {userId} = useAuth();
   const [quizQuestions, setQuizQuestions] = useState<any[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
@@ -81,6 +83,22 @@ export default function QuizPage({ params }: { params: { topicId: string } }) {
     setTimeout(handleNextQuestion, 2000);
   };
 
+  const handleSubmitScore = async () => {
+    if (!userId) return;
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+      const response = await fetch(`${baseUrl}/submit-score`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: userId, points: score}),
+      });
+      if (!response.ok) throw new Error("Failed to submit score");
+      router.push(`/dashboard/${params.topicId}`);
+    } catch (error) {
+      console.error("Error submitting score:", error);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -108,8 +126,8 @@ export default function QuizPage({ params }: { params: { topicId: string } }) {
               <p className="text-xl font-bold">{score}</p>
             </div>
           </div>
-          <Button className="w-full" onClick={() => router.push(`/dashboard/${params.topicId}`)}>
-            Go Back
+          <Button className="w-full" onClick={handleSubmitScore}>
+            Submit and Go Back 
           </Button>
         </Card>
       </div>

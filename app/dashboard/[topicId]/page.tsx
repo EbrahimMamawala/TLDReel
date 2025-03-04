@@ -53,9 +53,9 @@ export default function TopicSelection() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-background px-4 py-8 sm:px-6 lg:px-8">
-      <div className="absolute top-4 right-4">
+      {/* <div className="absolute top-4 right-4">
         <LanguageSelector selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} />
-      </div>
+      </div> */}
       <div className="flex flex-col w-full max-w-4xl mx-auto">
         <div className="space-y-8">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center">

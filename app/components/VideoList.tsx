@@ -9,12 +9,7 @@ interface Video {
   title: string
   description: string
   src: string
-  username: string
-  likes: string
-  comments: string
-  userAvatar: string
 }
-
 interface VideoListProps {
   videos: Video[]
   currentVideoIndex: number
